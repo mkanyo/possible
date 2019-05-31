@@ -79,6 +79,18 @@ namespace Possible.MessageWeb.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Surname")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Phone number")]
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber{ get; set; }
     }
 
     public class ResetPasswordViewModel
