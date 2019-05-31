@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace MessageWeb
+namespace Possible.MessageWeb
 {
     public class BundleConfig
     {

@@ -1,8 +1,9 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using Possible.MessageWeb;
 
-[assembly: OwinStartupAttribute(typeof(MessageWeb.Startup))]
-namespace MessageWeb
+[assembly: OwinStartup(typeof(Startup))]
+namespace Possible.MessageWeb
 {
     public partial class Startup
     {

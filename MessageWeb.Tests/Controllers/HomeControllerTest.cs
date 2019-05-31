@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MessageWeb;
-using MessageWeb.Controllers;
+using Possible.MessageWeb;
+using Possible.MessageWeb.Controllers;
 
-namespace MessageWeb.Tests.Controllers
+namespace Possible.MessageWeb.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using MessageWeb.Models;
+using Possible.MessageWeb.Models;
 
-namespace MessageWeb.Controllers
+namespace Possible.MessageWeb.Controllers
 {
     [Authorize]
     public class AccountController : Controller

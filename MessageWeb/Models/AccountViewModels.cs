@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MessageWeb.Models
+namespace Possible.MessageWeb.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

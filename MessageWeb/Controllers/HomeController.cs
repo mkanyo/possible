@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MessageWeb.Controllers
+namespace Possible.MessageWeb.Controllers
 {
     public class HomeController : Controller
     {
