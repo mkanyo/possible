@@ -234,6 +234,10 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include=".well-known\acme-challenge\vui2cZka2TugScBT5FeojHUSOhqy9i5KBTtggPftJ4M" />
+    <Content Include=".well-known\web.config" />
+    <None Include="Properties\PublishProfiles\possible.mkanyo.com - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\WebWiz-FTP.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
