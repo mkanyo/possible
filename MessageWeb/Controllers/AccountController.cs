@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +9,7 @@ using Possible.MessageWeb.Models;
 
 namespace Possible.MessageWeb.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {
@@ -153,7 +151,7 @@ namespace Possible.MessageWeb.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.Email,
+                    UserName = model.Username,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
                     FirstName = model.FirstName,

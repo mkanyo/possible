@@ -15,6 +15,16 @@
         <div class="col-md-8">
             @Html.ValidationSummary("", new { @class = "text-danger" })
             <div class="form-group">
+                @Html.LabelFor(m => m.Username, new { @class = "control-label" })
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@@</span>
+                    </div>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
                 @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
             </div>
@@ -33,6 +43,10 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber)
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "+36301234567" })
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register" />

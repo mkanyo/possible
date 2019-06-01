@@ -65,6 +65,12 @@ namespace Possible.MessageWeb.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Username")]
+
+        [RegularExpression(@"[\w_\-\.]{3,12}", ErrorMessage = "The username can only contain letters and numbers and _ - . characters. And must be between 3-12 characters long.")]
+        public string Username { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -88,8 +94,9 @@ namespace Possible.MessageWeb.Models
         [Display(Name = "Surname")]
         public string LastName { get; set; }
 
-        [Display(Name = "Phone number")]
+        [Display(Name = "Phone number (optinal)")]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"\+\d{8,12}", ErrorMessage = "The phone number needs to be of format: +XXXXXXXXXX the X being a number.")]
         public string PhoneNumber{ get; set; }
     }
 
