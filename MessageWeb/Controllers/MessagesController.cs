@@ -64,6 +64,7 @@ namespace Possible.MessageWeb.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public async Task<JsonResult> MarkAsRead(int id, bool read = true)
         {
             var model = await _dbContext.Messages.FirstOrDefaultAsync(m => m.MessageId == id);
@@ -72,7 +73,7 @@ namespace Possible.MessageWeb.Controllers
 
             await _dbContext.SaveChangesAsync();
 
-            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.DenyGet);
         }
     }
 }
