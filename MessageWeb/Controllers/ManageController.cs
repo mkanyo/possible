@@ -2,10 +2,12 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Possible.MessageWeb.Models;
+using Possible.MessageWeb.Models.Identity;
 using Possible.MessageWeb.Services;
 
 namespace Possible.MessageWeb.Controllers
@@ -15,15 +17,28 @@ namespace Possible.MessageWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _dbContext;
 
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationDbContext dbContext)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _dbContext = dbContext;
+        }
+
+        public ApplicationDbContext DbContext
+        {
+            get
+            {
+                if (_dbContext == null)
+                    _dbContext = ApplicationDbContext.Create();
+
+                return _dbContext;
+            }
         }
 
         public ApplicationSignInManager SignInManager
@@ -63,15 +78,21 @@ namespace Possible.MessageWeb.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
+            var user = await DbContext.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
+                HideMeFromList = user?.HideMeFromList ?? false,
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+
+
+
             return View(model);
         }
 
@@ -99,37 +120,7 @@ namespace Possible.MessageWeb.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        //
-        // GET: /Manage/AddPhoneNumber
-        public ActionResult AddPhoneNumber()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Manage/AddPhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            // Generate the token and send it
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
-            if (UserManager.SmsService != null)
-            {
-                var message = new IdentityMessage
-                {
-                    Destination = model.Number,
-                    Body = "Your security code is: " + code
-                };
-                await UserManager.SmsService.SendAsync(message);
-            }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
-        }
-
+       
         //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]

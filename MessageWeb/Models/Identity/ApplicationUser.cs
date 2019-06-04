@@ -16,6 +16,11 @@ namespace Possible.MessageWeb.Models.Identity
         /// </summary>
         public string LastName { get; set; }
 
+        /// <summary>
+        /// Marks if user wants to be hidden from 
+        /// </summary>
+        public bool HideMeFromList { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
