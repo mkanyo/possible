@@ -1,0 +1,17 @@
+﻿@using Possible.MessageWeb.Models.Identity
+@model IEnumerable<ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+}
+    <ul class="list-group">
+        @foreach (var user in Model)
+        {
+        <li class="list-group-item list-group-item-action">
+            <span>@user.UserName (aka @user.FirstName @user.LastName)</span>
+            <div style="float:right">
+                <button type="button" class="btn btn-light">Light</button>
+                <button type="button" class="btn btn-info">Info</button>
+            </div>
+        </li>
+        }
+    </ul>

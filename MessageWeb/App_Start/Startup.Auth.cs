@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Possible.MessageWeb.Models;
+using Possible.MessageWeb.Models.Identity;
+using Possible.MessageWeb.Services;
 
 namespace Possible.MessageWeb
 {

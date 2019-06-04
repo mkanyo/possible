@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Possible.MessageWeb.Models;
 using Possible.MessageWeb.Models.Account;
+using Possible.MessageWeb.Models.Identity;
+using Possible.MessageWeb.Services;
 
 namespace Possible.MessageWeb.Controllers
 {
