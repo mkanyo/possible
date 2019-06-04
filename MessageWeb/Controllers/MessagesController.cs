@@ -15,7 +15,7 @@ namespace Possible.MessageWeb.Controllers
             _dbContext = ApplicationDbContext.Create();
         }
         // GET: Messages
-        public async ActionResult Index()
+        public ActionResult Index()
         {
             var messages = _dbContext.Messages.Where(m => m.UserNameTo == User.Identity.Name).ToList();
 
