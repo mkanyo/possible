@@ -2,27 +2,53 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Your messages</h2>
 
 <ul class="list-group">
     @foreach (var message in Model)
     {
-    <li class="list-group-item">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">From: @message.UsernameFrom 
-                @if (!message.Read)
-                {
-                    <span class="badge badge-primary">New</span>
-                }
-                </h5>
-                <h6 class="card-subtitle mb-2 text-muted">@message.CreationDate.ToShortDateString()</h6>
-                <p class="card-text">@message.Contents.Substring(0, Math.Min(12, message.Contents.Length)) ... </p>
-                <a href="/messages/read?id=@message.MessageId" class="card-link btn btn-secondary">Open</a>
-                <a href="#" class="card-link btn btn-light">Mark as Read</a>
+        <li class="list-group-item">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" data-message-id="@message.MessageId">
+                        From: @message.UsernameFrom
+                        <span class="badge badge-primary @(message.Read?"d-none":string.Empty) ">New</span>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@message.CreationDate.ToShortDateString()</h6>
+                    <p class="card-text">@message.Contents.Substring(0, Math.Min(12, message.Contents.Length)) ... </p>
+                    <a href="/messages/read?id=@message.MessageId" class="card-link btn btn-secondary">Open</a>
+                    <a href="javascript: MarkAsRead(@message.MessageId, true)" class="card-link btn btn-light">Mark as Read</a>
+                    <a href="javascript: MarkAsRead(@message.MessageId, false)" class="card-link btn btn-info">Mark as Unread</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
     }
 </ul>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script lang="en" type="text/javascript">
+    function MarkAsRead(id, read) {
+        $.ajax({
+            type: "GET",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/Messages/MarkAsRead',
+            context: document.body,
+            data: { id: id, read : read },
+            success: function (result) {
+                if (read) {
+                    $('h5[data-message-id="' + id + '"] span').addClass('d-none');
+                }
+                else {
+                    $('h5[data-message-id="' + id + '"] span').removeClass('d-none');
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
+</script> 
