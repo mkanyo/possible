@@ -6,11 +6,17 @@ namespace Possible.MessageWeb.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly ApplicationDbContext _dbContext;
+        public UsersController()
+        {
+            _dbContext = ApplicationDbContext.Create();
+        }
+
         // GET: Users
         public ActionResult Index()
         {
             // get all users except my user
-            var model = ApplicationDbContext.Create().Users.Where(u => u.UserName != User.Identity.Name).ToList();
+            var model = _dbContext.Users.Where(u => u.UserName != User.Identity.Name).ToList();
 
             return View(model);
         }

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Possible.MessageWeb.Models.Messages.Message>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Your messages</h2>
+
+<ul>
+    @foreach (var message in Model)
+    {
+        <li>From: @message.UsernameFrom => @message.Contents</li>
+    }
+</ul>

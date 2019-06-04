@@ -1,0 +1,30 @@
+﻿@model Possible.MessageWeb.Models.Messages.NewMessageViewModel
+@{
+    ViewBag.Title = "New";
+}
+
+<h3>Compose a message</h3>
+
+@using (Html.BeginForm("New", "Messages", FormMethod.Post, new { @class = "needs-validation", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+
+        <div class="col-md-8">
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserNameTo, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.UserNameTo, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Contents, new { @class = "control-label" })
+                @Html.TextAreaFor(m => m.Contents, new { @class = "form-control" });
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Send message" />
+            </div>
+        </div>
+    </div>
+}
