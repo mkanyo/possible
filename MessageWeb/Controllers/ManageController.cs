@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Data.Entity;
-using Possible.MessageWeb.Models;
 using Possible.MessageWeb.Models.Identity;
 using Possible.MessageWeb.Models.Manage;
 
@@ -44,8 +43,5 @@ namespace Possible.MessageWeb.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
-
-
     }
 }

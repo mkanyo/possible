@@ -1,8 +1,8 @@
-﻿using Possible.MessageWeb.Models.Identity;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Possible.MessageWeb.Models.Identity;
 
 namespace Possible.MessageWeb.Controllers
 {
