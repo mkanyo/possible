@@ -1,5 +1,6 @@
 ﻿using Possible.MessageWeb.Models.Identity;
 using System.Web.Mvc;
+using System.Data.Entity;
 using System.Linq;
 using Possible.MessageWeb.Models.Messages;
 using System.Threading.Tasks;
@@ -15,16 +16,16 @@ namespace Possible.MessageWeb.Controllers
             _dbContext = ApplicationDbContext.Create();
         }
         // GET: Messages
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var messages = _dbContext.Messages.Where(m => m.UserNameTo == User.Identity.Name).ToList();
+            var messages = await _dbContext.Messages.Where(m => m.UserNameTo == User.Identity.Name).ToListAsync();
 
             return View(messages);
         }
 
-        public ActionResult New()
+        public ActionResult New(string u)
         {
-            return View();
+            return View(new NewMessageViewModel { UserNameTo = u });
         }
 
         [HttpPost]

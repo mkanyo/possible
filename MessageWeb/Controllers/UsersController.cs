@@ -1,6 +1,8 @@
 ﻿using Possible.MessageWeb.Models.Identity;
 using System.Web.Mvc;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Possible.MessageWeb.Controllers
 {
@@ -13,10 +15,10 @@ namespace Possible.MessageWeb.Controllers
         }
 
         // GET: Users
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             // get all users except my user
-            var model = _dbContext.Users.Where(u => u.UserName != User.Identity.Name).ToList();
+            var model = await _dbContext.Users.Where(u => u.UserName != User.Identity.Name).ToListAsync();
 
             return View(model);
         }

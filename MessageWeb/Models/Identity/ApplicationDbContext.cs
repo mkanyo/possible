@@ -6,6 +6,9 @@ namespace Possible.MessageWeb.Models.Identity
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        /// <summary>
+        /// Gets the db set to query / update the messages in the DB.
+        /// </summary>
         public DbSet<Message> Messages { get; set; }
 
         public ApplicationDbContext()
