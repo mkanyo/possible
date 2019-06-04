@@ -15,6 +15,7 @@ namespace Possible.MessageWeb.Controllers
         {
             _dbContext = ApplicationDbContext.Create();
         }
+
         // GET: Messages
         public async Task<ActionResult> Index()
         {
@@ -51,6 +52,16 @@ namespace Possible.MessageWeb.Controllers
             return View(msg);
         }
 
+        public async Task<ActionResult> Read(int id)
+        {
+            var model = await _dbContext.Messages.FirstOrDefaultAsync(m => m.MessageId == id);
 
+            // mark message read
+            model.Read = true;
+            
+            await _dbContext.SaveChangesAsync();
+
+            return View(model);
+        }
     }
 }

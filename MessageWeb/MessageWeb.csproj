@@ -315,6 +315,7 @@
     <Content Include="Views\Shared\_NavigationItems.cshtml" />
     <Content Include="Views\Messages\Index.cshtml" />
     <Content Include="Views\Messages\New.cshtml" />
+    <Content Include="Views\Messages\Read.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

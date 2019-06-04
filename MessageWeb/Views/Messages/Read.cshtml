@@ -1,0 +1,15 @@
+﻿@model Possible.MessageWeb.Models.Messages.Message
+@{
+    ViewBag.Title = "Read";
+}
+
+<div class="jumbotron">
+    <h2 class="display-5">Message from: @Model.UsernameFrom</h2>
+    <p class="lead">Sent on: @Model.CreationDate.ToShortDateString()</p>
+    <hr class="my-4">
+    <p>@Model.Contents</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/messages" role="button">Back to Messages</a>
+    </p>
+</div>
+

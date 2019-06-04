@@ -5,9 +5,24 @@
 
 <h2>Your messages</h2>
 
-<ul>
+<ul class="list-group">
     @foreach (var message in Model)
     {
-        <li>From: @message.UsernameFrom => @message.Contents</li>
+    <li class="list-group-item">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">From: @message.UsernameFrom 
+                @if (!message.Read)
+                {
+                    <span class="badge badge-primary">New</span>
+                }
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">@message.CreationDate.ToShortDateString()</h6>
+                <p class="card-text">@message.Contents.Substring(0, Math.Min(12, message.Contents.Length)) ... </p>
+                <a href="/messages/read?id=@message.MessageId" class="card-link btn btn-secondary">Open</a>
+                <a href="#" class="card-link btn btn-light">Mark as Read</a>
+            </div>
+        </div>
+    </li>
     }
 </ul>
