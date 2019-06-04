@@ -17,8 +17,8 @@ namespace Possible.MessageWeb.Controllers
         // GET: Users
         public async Task<ActionResult> Index()
         {
-            // get all users except my user
-            var model = await _dbContext.Users.Where(u => u.UserName != User.Identity.Name).ToListAsync();
+            // get all users except current user and those marked themselves hidden.
+            var model = await _dbContext.Users.Where(u => u.UserName != User.Identity.Name && !u.HideMeFromList).ToListAsync();
 
             return View(model);
         }
