@@ -26,5 +26,12 @@
                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Send message" />
             </div>
         </div>
+
+        <div class="col-md-4">
+            <h4>Your current quota</h4>
+            <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: @Model.CurrentQuota%" aria-valuenow="@Model.CurrentQuota" aria-valuemin="0" aria-valuemax="5"></div>
+            </div>
+        </div>
     </div>
 }

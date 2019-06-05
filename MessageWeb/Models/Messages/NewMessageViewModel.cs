@@ -11,5 +11,7 @@ namespace Possible.MessageWeb.Models.Messages
         [Required(ErrorMessage = "Please ented the message to send")]
         [Display(Name = "Your message")]
         public string Contents { get; set; }
+
+        public double CurrentQuota { get; set; }
     }
 }

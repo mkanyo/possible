@@ -5,12 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Possible.MessageWeb.Models.Messages;
 using Possible.MessageWeb.Models.Identity;
+using System.Data.Entity.SqlServer;
 
 namespace Possible.MessageWeb.Controllers
 {
     public class MessagesController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
+        private const int MaxMessagePerDay = 5;
+
         public MessagesController()
         {
             _dbContext = ApplicationDbContext.Create();
@@ -24,9 +27,11 @@ namespace Possible.MessageWeb.Controllers
             return View(messages);
         }
 
-        public ActionResult New(string u)
+        public async Task<ActionResult> New(string u)
         {
-            return View(new NewMessageViewModel { UserNameTo = u });
+            var count = await _dbContext.Messages.CountAsync(m => SqlFunctions.DateDiff("day", DateTime.Now, m.CreationDate) == 0);
+
+            return View(new NewMessageViewModel { UserNameTo = u, CurrentQuota = (double)count / MaxMessagePerDay * 100 });
         }
 
         [HttpPost]
@@ -35,17 +40,26 @@ namespace Possible.MessageWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Messages.Add(new Message
+                var count = await _dbContext.Messages.CountAsync(m => SqlFunctions.DateDiff("day", DateTime.Now, m.CreationDate) == 0);
+
+                if (count <= MaxMessagePerDay)
                 {
-                    Contents = msg.Contents,
-                    CreationDate = DateTime.Now,
-                    UsernameFrom = User.Identity.Name,
-                    UserNameTo = msg.UserNameTo
-                });
+                    _dbContext.Messages.Add(new Message
+                    {
+                        Contents = msg.Contents,
+                        CreationDate = DateTime.Now,
+                        UsernameFrom = User.Identity.Name,
+                        UserNameTo = msg.UserNameTo
+                    });
 
-                await _dbContext.SaveChangesAsync();
+                    await _dbContext.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("Contents", $"You have reached your quota of {MaxMessagePerDay} per day.");
+                }
             }
 
             // If we got this far, something failed, redisplay form
